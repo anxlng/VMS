@@ -178,32 +178,14 @@ public class GISFunc {
      * @return true :内，   false ： 外
      */
     public static boolean pointInPolygon(double[] p, List<double[]> list){
-        boolean  flag=false;
-        int n = list.size();
         
-        for(int i = 0; i < n; i++) {
-            double dp[] = list.get(i);
-            if (p[1] < dp[1] && p[1] < list.get((i+1) % n)[1]) {
-                continue;
-            }
-            
-            // 如果这里出现
-            if (p[0] >= dp[0] && p[0] >= list.get((i + 1) % n)[1]) {
-                continue;
-            }
-            
-            double dx = list.get((i + 1) % n)[0] - dp[0];
-            double dy = list.get((i + 1) % n)[1] - dp[1];
-            
-            double t = (p[0] - dp[0]) / dx;//求得交点的t值
-            double y = t * dy + dp[1];
-
-                
-            if(y <= p[1] && t >= 0 && t <= 1) {
-                flag = !flag;
-            } 
+        MPoint mp = new MPoint(p[0], p[1]);
+        ArrayList<MPoint> ps = new ArrayList<MPoint>();
+        for (double[] _p : list) {
+            ps.add(new MPoint(_p[0], _p[1]));
         }
-        return flag;
+        
+        return pointInPolygon(mp, ps);
     }
     
     /**判断点在多边形内还是多边形外
@@ -211,26 +193,26 @@ public class GISFunc {
      * @param list
      * @return true :内，   false ： 外
      */
-    public static boolean pointInPolygon(MPoint p, List<double[]> list){
+    public static boolean pointInPolygon(MPoint p, List<MPoint> list){
         boolean  flag=false;
         int n = list.size();
         
         for(int i = 0; i < n; i++) {
-            double dp[] = list.get(i);
-            if (p.Y < dp[1] && p.Y < list.get((i+1) % n)[1]) {
+            MPoint dp = list.get(i);
+            if (p.Y < dp.Y && p.Y < list.get((i+1) % n).Y) {
                 continue;
             }
             
             // 如果这里出现
-            if (p.X >= dp[0] && p.X >= list.get((i + 1) % n)[1]) {
+            if (p.X >= dp.X && p.X >= list.get((i + 1) % n).X) {
                 continue;
             }
             
-            double dx = list.get((i + 1) % n)[0] - dp[0];
-            double dy = list.get((i + 1) % n)[1] - dp[1];
+            double dx = list.get((i + 1) % n).X - dp.X;
+            double dy = list.get((i + 1) % n).Y - dp.Y;
             
-            double t = (p.X - dp[0]) / dx;//求得交点的t值
-            double y = t * dy + dp[1];
+            double t = (p.X - dp.X) / dx;//求得交点的t值
+            double y = t * dy + dp.Y;
 
                 
             if(y <= p.Y && t >= 0 && t <= 1) {
@@ -246,13 +228,9 @@ public class GISFunc {
         final double X;
         final double Y;
 
-        private MPoint(double lon, double lat) {
+        public MPoint(double lon, double lat) {
             this.X = lon;
             this.Y = lat;
-        }
-
-        static MPoint getInstance(double lon, double lat) {
-            return new MPoint(lon, lat);
         }
     }
 }
