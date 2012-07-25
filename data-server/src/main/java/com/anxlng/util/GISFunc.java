@@ -89,6 +89,22 @@ public class GISFunc {
         return d + "°" + m + "′" + s + "″";
     }
     
+    /**
+     * 度分秒格式的经度或者纬度转换成“度”格式
+     * 根据计算，地球子午线长度约为40009千米，360度，一度大概111136 米；
+     * 一分大概1852米；1秒大概30.8米；而当前民用gps定位精确度大概在5米左右；
+     * 因此，度分秒格式精确到0.1秒，误差小于3米，
+     * 度格式精确到小数点后5位，
+     * 则度精确到小数点后四位，误差大概在10米左右；而当前民用gps定位经度也就是这个级别；
+     * 根据应用需要，小数点后6位误差大概在0.1米左右;
+     * @param dms
+     * @return 双精度的 度 格式数据，小数位最大4位
+     */
+    private static double dmsToDeg(String dms) {
+        
+        return 0.0;
+    }
+    
     public static String format(double d, int digits) {
         synchronized (format) { // 要进行同步，
             format.setMaximumFractionDigits(digits);
@@ -96,6 +112,11 @@ public class GISFunc {
         }
     }
 
+    /**
+     * 对经度或者纬度进行格式化，最多保留四位小数
+     * @param geo
+     * @return
+     */
     public static String degFormat(double geo) {
         return format(geo, 4);
     }
