@@ -120,6 +120,7 @@ public class GISFunc {
         if (f == 'W' || f == 'S') {
             deg = -deg;
         }
+        deg = Double.parseDouble(format(deg, 6)); 
         return deg;
     }
     

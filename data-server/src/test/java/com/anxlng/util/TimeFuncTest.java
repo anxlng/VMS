@@ -47,7 +47,17 @@ public class TimeFuncTest {
 		String defaultDate = utcToDefault(current, TimeFunc.DATE_TIME);
 		String utcDate = defaultToUtc(defaultDate, TimeFunc.DATE_TIME);
 		
+		String d1 = utcToDefault("085323120802", "HHmmssyyMMdd");
+		Date date = toDate(d1, "HHmmssyyMMdd");
+		String r = getDateTime(date, TimeFunc.DATE_TIME);
+		String u1 = defaultToUtc(d1, "HHmmssyyMMdd");
+		
+		String f = transform(d1, "HHmmssyyMMdd", TimeFunc.DATE_TIME);
 		assertEquals(utcDate, current);
+		assertEquals(u1, "085323120802");
+		assertEquals(r, "2012-08-02 16:53:23");
+		
+		assertEquals(f, "2012-08-02 16:53:23");
 	}
 
 	/**
