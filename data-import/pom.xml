@@ -62,7 +62,7 @@
                     <addClasspath>true</addClasspath>
                     <mainClass>com.anxlng.di.CenterData</mainClass>
                     <classpathPrefix>
-                        lib/
+                        dependency/
                     </classpathPrefix>
                 </manifest>
             </archive>
