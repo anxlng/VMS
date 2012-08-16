@@ -1,4 +1,4 @@
-/**
+/*
  * data-server. 2012-6-27
  */
 package com.anxlng.util;
